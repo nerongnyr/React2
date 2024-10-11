@@ -71,3 +71,58 @@ SSR이 최적의 렌더링 전략이 아닌 경우
 * 예를 들어 동적 콘텐츠를 제공하지만 해당 콘텐츠 데이터를 로딩하는데 시간이 오래 걸린다면, SSG와 ISR을 함께 사용하여 문제를 해결할 수 있습니다.
 * 많은 양의 데이터를 필요로 하는 복잡한 대시보드를 만든다면, 데이터를 불러오기 위한 REST API 호출에 수 초가 소요됩니다
 * 만일 데이터가 자주 변하지 않는다면 10분
+
+### 241011
+
+1. Page Project Layout -_app
+
+- _app.jsx는 서버에 요청할 떄 가장 먼저 실행되는 컴포넌트입니다
+- 페이지에 적용할 공통 레이아웃을 선언하는 곳입니다
+
+Page Project Layout -_document
+
+2. App Project Layout - layout.jsx
+
+App Project Layout - meta data
+
+- metadata에서 모든 페이지에 적용할 meta data를 선언할 수 있습니다
+- title의 경우에는 각 페이지에 맞게 작성하는 것이 SEO 에 좋습니다
+
+App Project Layout - LootLayout
+
+App Project Layout - Link component
+
+3. Link vs. a vs. router.push
+
+- Link component를 이용해서 Navibar component를 만들어봅니다.
+- <a> tag는 html 동기식으로 전체기 reload 되기 때문에, 외부 링크를 할 떄 사용합니다
+- 일반적으로 내부 링크 이동시에는 사용하지 않는 것이 좋습니다
+
+- router.push 는 빌드 후, 이동할 주소가 html 상에 노출되지 않기 때문에 SEO 에 취약합니다
+
+- Link 컴포넌트는 빌드 후, a tag로 자동 변환됩니다
+- a tag의 장점인 SEO 최적화, prefetch 가능, 우 클릭 기능 등을 갖습니다.
+- 내부 페이지로의 이동할 때 이 방식을 사용해야 SPA 방식으로 전체 html 중 필요한 부분만 비동기식으로 리렌더링 된다
+
+
+
+1. Image component -local
+
+- 정적 자원 중 이미지 파일은 SEO에 많은 영향을 미핍니다.
+- 다운로드시간이 많이 걸리고, 렌더링 후에 레이아웃이 변경되는 등 UX에 영향을 미칩니다
+- 이것을 누적 레이아웃 이동(CLS: Cumulative Layout Shift)라고 합니다
+- Image컴포넌트를 사용하면 CLS문제를 해결합니다
+- lazy loading: 이미지 로드 시점을 필요할 떄까지 지연시키는 기술입니다
+- 이미지 사이즈 최적화로 사이즈를 1/10 이하로 줄여줍니다
+- Placeholder를 제공합니다
+- WebP와 같은 최신 이밎 포맷 및 최신 포맷을 지원하지 않는 브라우저를 위해 png나 jpge 와같은 예전 이미지 포맷도 제공합니다
+- Pixabay나 Unplash와 같은 외부 이미지 서비스로 이미지를 제공할 수 있습니다
+- Image 컴포넌트를 사용하면 다양한 props를 전달할 수 있습니다
+    ** 주요 props **
+    - src = " "
+    - width = {500}
+    - height = [500}
+    - alt = ""
+    - Placeholder = "blue"
+      // 외부 이미지는 blurDataURL=''로 처리
+    - loading = "lazy"
