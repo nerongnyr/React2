@@ -183,4 +183,18 @@ lib 파일 구성
   2) 서버가 페이지를 렌더링할 떄 getServerSideProps를 통해, 실행 도중 데이터를 불러올 수도 있음
 - 데이터 베이스에서 데이터를 가져올 수도 있지만 안전하지 않기 때문에 권장하지 않음. 데이터베이스 접근은 백엔드에서 처리하는 것이 좋음
 
+### 241030
+
+서버에서 REST API 사용하기
+
+1. REST API
+
+- REST(Representational State Transfer) 란 자원을 이름으로 구분하여 그 자원의 상태를 통신을 통해 주고 받는 것을 의미합니다
+
+2. Json Server
+
+- Backend가 개발되기 전이나, 아직 외부 API 가 결정되지 않았다면 local 에 Json server를 구축하고 Frontend 개발을 하기에 적합한 node 패키지입니다.
+
+3. Axios
+
 
